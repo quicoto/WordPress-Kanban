@@ -14,11 +14,6 @@
 
 get_header();
 ?>
-
-	<main>
-		<h1>Hello World</h1>
-		<h2>This is a Vue App</h2>
-	</main><!-- #main -->
-
+	<main id="app"></main>
 <?php
 get_footer();
