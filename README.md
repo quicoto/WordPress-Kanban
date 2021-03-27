@@ -3,4 +3,4 @@
 
 ## TODO
 
-[x] Block REST API if not logged in
+- Block REST API if not logged in
