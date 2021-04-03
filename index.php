@@ -14,6 +14,9 @@
 
 get_header();
 ?>
+	<script>
+		window.kanban_ = { restUrl: '<?=rest_url()?>' }
+	</script>
 	<main id="app"></main>
 <?php
 get_footer();

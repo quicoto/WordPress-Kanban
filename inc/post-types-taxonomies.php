@@ -36,7 +36,7 @@ function custom_post_type() {
 		'label'                 => __( 'Item', 'text_domain' ),
 		'description'           => __( 'Item Description', 'text_domain' ),
 		'labels'                => $labels,
-		'supports'              => array( 'title', 'editor' ),
+		'supports'              => array( 'title', 'editor', 'custom-fields' ),
 		'taxonomies'            => array(),
 		'hierarchical'          => false,
 		'public'                => true,
@@ -51,7 +51,7 @@ function custom_post_type() {
 		'has_archive'           => true,
 		'exclude_from_search'   => false,
 		'publicly_queryable'    => true,
-		'capability_type'       => 'page',
+		'capability_type'       => 'post',
 	);
 	register_post_type( 'item', $args );
 
