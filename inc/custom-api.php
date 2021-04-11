@@ -65,8 +65,18 @@ function create_item ($data) {
   add_post_meta($post_id, 'status', $data['status'], true );
 }
 
-function update_item ($data) {
+function update_item_status ($data) {
   return update_post_meta($data['itemId'], 'status', $data['status'] );
+}
+
+function update_item ($data) {
+  $my_post = array(
+    'ID'           => $data['ID'],
+    'post_title'   => $data['post_title'],
+    'post_content' => $data['post_content']
+  );
+
+  wp_update_post( $my_post );
 }
 
 function get_user_logged_in() {
@@ -92,6 +102,11 @@ add_action( 'rest_api_init', function () {
   register_rest_route( 'kanban/v1', '/create-item', array(
     'methods' => 'POST',
     'callback' => 'create_item',
+  ) );
+
+  register_rest_route( 'kanban/v1', '/update-item-status', array(
+    'methods' => 'POST',
+    'callback' => 'update_item_status',
   ) );
 
   register_rest_route( 'kanban/v1', '/update-item', array(

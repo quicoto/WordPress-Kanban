@@ -14,10 +14,8 @@
 
         <b-col md="4">
           <h4 class="mb-3 text-danger d-flex justify-content-between">
-            <span><b-icon icon="clipboard-check"></b-icon> To do</span>
-            <b-button variant="outline-secondary" size="sm" @click="newItem.board = board.term_id" v-b-modal.modal-1  >
-              <b-icon icon="plus"></b-icon>
-            </b-button>
+            <span><b-icon icon="clipboard-check"></b-icon> Backlog</span>
+            <b-icon class="pointer" icon="plus" @click="newItem.board = board.term_id" v-b-modal.modal-1></b-icon>
           </h4>
           <b-card-group
             class="mb-3"
@@ -29,9 +27,16 @@
             >
               <template #header>
                 <div class="d-flex justify-content-between">
-                  <h6 class="mb-0">{{ item.post_title }}</h6>
+                  <h6 class="mb-0">
+                    <b-icon
+                      class="pointer"
+                      icon="pencil"
+                      v-b-modal.modal-2
+                      @click="editItem.ID = item.ID; editItem.title = item.post_title; editItem.content = item.post_content"></b-icon>
+                    {{ item.post_title }}
+                  </h6>
                   <span class="actions">
-                    <b-icon icon="arrow-clockwise" @click="updateItem(item.ID, 2)"></b-icon>
+                    <b-icon icon="arrow-clockwise" @click="changeStatus(item.ID, 2)"></b-icon>
                   </span>
                 </div>
               </template>
@@ -47,7 +52,7 @@
         </b-col>
 
         <b-col md="4" v-if="board.items.length > 0">
-          <h5 class="mb-3 text-primary"><b-icon icon="arrow-clockwise"></b-icon> In progress</h5>
+          <h4 class="mb-3 text-primary"><b-icon icon="arrow-clockwise"></b-icon> In progress</h4>
           <b-card-group
             class="mb-3"
             v-for="item in board.items.filter(i => i.status === 2)" :key="item.ID">
@@ -58,10 +63,17 @@
             >
               <template #header>
                 <div class="d-flex justify-content-between">
-                  <h6 class="mb-0">{{ item.post_title }}</h6>
+                  <h6 class="mb-0">
+                    <b-icon
+                      class="pointer"
+                      icon="pencil"
+                      v-b-modal.modal-2
+                      @click="editItem.ID = item.ID; editItem.title = item.post_title; editItem.content = item.post_content"></b-icon>
+                    {{ item.post_title }}
+                  </h6>
                   <span class="actions">
-                    <b-icon icon="clipboard-check" @click="updateItem(item.ID, 1)"></b-icon>
-                    <b-icon icon="check-square" class="ml-1" @click="updateItem(item.ID, 3)"></b-icon>
+                    <b-icon icon="clipboard-check" @click="changeStatus(item.ID, 1)"></b-icon>
+                    <b-icon icon="check-square" class="ml-1" @click="changeStatus(item.ID, 3)"></b-icon>
                   </span>
                 </div>
               </template>
@@ -73,7 +85,7 @@
         </b-col>
 
         <b-col md="4" v-if="board.items.length > 0">
-          <h5 class="mb-3 text-success"><b-icon icon="check-square"></b-icon> Done</h5>
+          <h4 class="mb-3 text-success"><b-icon icon="check-square"></b-icon> Done</h4>
           <b-card-group
             class="mb-3"
             v-for="item in board.items.filter(i => i.status === 3)" :key="item.ID">
@@ -84,10 +96,17 @@
             >
               <template #header>
                 <div class="d-flex justify-content-between">
-                  <h6 class="mb-0">{{ item.post_title }}</h6>
+                  <h6 class="mb-0">
+                    <b-icon
+                      class="pointer"
+                      icon="pencil"
+                      v-b-modal.modal-2
+                      @click="editItem.ID = item.ID; editItem.title = item.post_title; editItem.content = item.post_content"></b-icon>
+                    {{ item.post_title }}
+                  </h6>
                   <span class="actions">
-                    <b-icon icon="arrow-clockwise" class="ml-1" @click="updateItem(item.ID, 2)"></b-icon>
-                    <b-icon icon="trash" class="ml-1" @click="updateItem(item.ID, 4)"></b-icon>
+                    <b-icon icon="arrow-clockwise" class="ml-1" @click="changeStatus(item.ID, 2)"></b-icon>
+                    <b-icon icon="trash" class="ml-1" @click="changeStatus(item.ID, 4)"></b-icon>
                   </span>
                 </div>
               </template>
@@ -147,6 +166,45 @@
         </div>
       </b-form>
     </b-modal>
+
+    <b-modal
+      ref="update-modal"
+      id="modal-2"
+      title="Edit item"
+      hide-footer
+      @hidden="editItem.title = ''; editItem.content = ''; editItem.board = null;">
+       <b-form @submit="updateItem()">
+        <b-form-group
+          id="input-group-3"
+          label="Title"
+          label-for="editItemTitle"
+        >
+          <b-form-input
+            id="editItemTitle"
+            v-model="editItem.title"
+            type="text"
+          ></b-form-input>
+        </b-form-group>
+
+         <b-form-group
+          id="input-group-4"
+          label="Item content"
+          label-for="editItemContent"
+        >
+          <b-form-textarea
+            required
+            id="editItemContent"
+            v-model="editItem.content"
+            rows="3"
+            max-rows="6"
+          ></b-form-textarea>
+        </b-form-group>
+
+        <div class="text-right">
+          <b-button type="submit" variant="primary" :disabled="editItem.content.length <= 0">Update</b-button>
+        </div>
+      </b-form>
+    </b-modal>
   </div>
 </template>
 
@@ -159,9 +217,14 @@ export default {
     return {
       boards: [],
       showLoading: true,
-      newItem: {
-        title: '',
+      editItem: {
+        ID: null,
         content: '',
+        title: ''
+      },
+      newItem: {
+        content: '',
+        title: '',
         board: null
       }
     }
@@ -200,7 +263,9 @@ export default {
           }
         });
     },
-    createItem: function() {
+    createItem: function(event) {
+      event.preventDefault();
+
       this.$refs['create-modal'].hide();
 
       const data = {
@@ -223,7 +288,31 @@ export default {
         });
 
     },
-    updateItem: function (itemId, status) {
+    updateItem: function() {
+      // event.preventDefault();
+
+      this.$refs['update-modal'].hide();
+
+      const data = {
+        ID: this.editItem.ID,
+        post_title: this.editItem.title,
+        post_content: this.editItem.content
+      };
+      const options = {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      };
+
+      fetch(`${window.kanban_.restUrl}${endpoints.updateItem}`, options)
+        .then(() => {
+          this.fetchResources();
+        });
+
+    },
+    changeStatus: function (itemId, status) {
        const data = {
         itemId,
         status
@@ -236,7 +325,7 @@ export default {
         body: JSON.stringify(data),
       };
 
-      fetch(`${window.kanban_.restUrl}${endpoints.updateItem}`, options)
+      fetch(`${window.kanban_.restUrl}${endpoints.updateItemStatus}`, options)
         .then(() => {
           this.fetchResources();
         });
