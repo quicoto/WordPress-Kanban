@@ -37,7 +37,6 @@ function kanban_scripts() {
 	wp_enqueue_style( 'kanban-style', get_stylesheet_directory_uri() . '/app/dist/app.css', array(), _S_VERSION );
 	wp_dequeue_style( 'wp-block-library' );
 	wp_enqueue_script( 'kanban-app', get_stylesheet_directory_uri() . '/app/dist/app.js', array(), _S_VERSION, true );
-	wp_enqueue_script( 'kanban-chunk-vendors', get_stylesheet_directory_uri() . '/app/dist/chunk-vendors.js', array(), _S_VERSION, true );
 }
 add_action( 'wp_enqueue_scripts', 'kanban_scripts' );
 
@@ -45,3 +44,5 @@ add_action( 'wp_enqueue_scripts', 'kanban_scripts' );
 require get_template_directory() . '/inc/post-types-taxonomies.php';
 require get_template_directory() . '/inc/custom-api.php';
 require get_template_directory() . '/inc/disable-emojis.php';
+require get_template_directory() . '/inc/cookie-expire.php';
+require get_template_directory() . '/inc/redirect-after-login.php';

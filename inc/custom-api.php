@@ -1,10 +1,17 @@
 <?php
 
-function get_all_boards() {
+function get_board($data) {
+  return get_all_boards((int) $data['id']);
+}
 
-  $output = get_terms( 'board', array(
-    'hide_empty' => false,
-  ) );
+function get_all_boards($term_id) {
+  if (is_numeric($term_id)) {
+    $output = array(get_term( $term_id, 'board' ));
+  } else {
+    $output = get_terms( 'board', array(
+      'hide_empty' => false,
+    ) );
+  }
 
   usort($output, function($a, $b) {return strcmp($a->name, $b->name);});
 
@@ -17,6 +24,13 @@ function get_all_boards() {
             'taxonomy' => 'board',
             'field'    => 'id',
             'terms'    => $term->term_id
+        )
+      ),
+      'meta_query' => array(
+        array(
+            'key' => 'status',
+            'value' => array(1, 2, 3),
+            'compare' => 'IN'
         )
       )
     );
@@ -51,14 +65,37 @@ function create_item ($data) {
   add_post_meta($post_id, 'status', $data['status'], true );
 }
 
+function update_item ($data) {
+  return update_post_meta($data['itemId'], 'status', $data['status'] );
+}
+
+function get_user_logged_in() {
+  return is_user_logged_in() ? 'yes' : 'no';
+}
+
 add_action( 'rest_api_init', function () {
+  register_rest_route( 'kanban/v1', '/is-user-logged-in', array(
+    'methods' => 'POST',
+    'callback' => 'get_user_logged_in',
+  ) );
+
   register_rest_route( 'kanban/v1', '/all-boards', array(
     'methods' => 'GET',
     'callback' => 'get_all_boards',
   ) );
 
+  register_rest_route( 'kanban/v1', '/board/(?P<id>\d+)', array(
+    'methods' => 'GET',
+    'callback' => 'get_board'
+  ) );
+
   register_rest_route( 'kanban/v1', '/create-item', array(
     'methods' => 'POST',
     'callback' => 'create_item',
+  ) );
+
+  register_rest_route( 'kanban/v1', '/update-item', array(
+    'methods' => 'POST',
+    'callback' => 'update_item',
   ) );
 } );

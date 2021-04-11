@@ -1,4 +1,6 @@
 export const endpoints = {
   allBoards: 'kanban/v1/all-boards',
-  createPost: 'kanban/v1/create-item'
+  board: 'kanban/v1/board',
+  createItem: 'kanban/v1/create-item',
+  updateItem: 'kanban/v1/update-item'
 }

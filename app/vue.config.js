@@ -1,5 +1,5 @@
 const path = require('path');
-
+const webpack = require('webpack');
 module.exports = {
   configureWebpack: {
     devtool: 'none',
@@ -7,7 +7,12 @@ module.exports = {
       filename: "[name].js",
       chunkFilename: "[name].js",
       path: path.resolve(__dirname, 'dist'),
-    }
+    },
+    plugins: [
+      new webpack.optimize.LimitChunkCountPlugin({
+        maxChunks: 1,
+      }),
+    ],
   },
 
   chainWebpack: config => {
@@ -22,5 +27,7 @@ module.exports = {
           }
         ]);
     }
+
+    config.optimization.splitChunks(false)
   }
 };
