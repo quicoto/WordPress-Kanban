@@ -263,9 +263,7 @@ export default {
           }
         });
     },
-    createItem: function(event) {
-      event.preventDefault();
-
+    createItem: function() {
       this.$refs['create-modal'].hide();
 
       const data = {
