@@ -4,7 +4,7 @@
       <b-icon v-show="showLoading" icon="circle-fill" animation="throb" font-scale="4"></b-icon>
     </div>
     <div v-show="!showLoading">
-      <h3 class="mb-3 text-light d-flex justify-content-between">
+      <h4 class="mb-3 text-light d-flex justify-content-between">
         <span>
           <b-icon icon="folder"></b-icon> Your Boards
         </span>
@@ -12,7 +12,7 @@
           <span class="when-open"><b-icon icon="eye-slash"></b-icon></span>
           <span class="when-closed"><b-icon icon="eye"></b-icon></span>
         </span>
-      </h3>
+      </h4>
       <b-collapse visible id="collapse-3">
         <b-list-group v-if="boards" class="mb-3">
           <router-link

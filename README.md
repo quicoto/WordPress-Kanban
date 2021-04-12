@@ -1,5 +1,18 @@
 # WordPress-Kanban
- WordPress Kanban board app with Vue.js
+
+Kanban board app with Vue.js using WordPress as a backend.
+
+It uses the power of the WordPress REST API to communicate back and forth from and to the database.
+
+## Screenshots
+
+### Mobile
+
+![Mobile](https://cldup.com/lIG7Dd8VCO.png)
+
+### Desktop
+
+![Desktop](https://cldup.com/xWuYKto1IQ.png)
 
 ## TODO
 
