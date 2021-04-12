@@ -2,7 +2,7 @@
   <div class="app">
     <b-container fluid>
       <b-row class="bg-dark">
-        <b-col offset-lg="2" cols="12" md="9" lg="10" class="text-light pt-3 pb-3">
+        <b-col offset-xl="2" offset-lg="3" cols="12" md="9" lg="10" class="text-light pt-3 pb-3">
           <h1 class="h4 m-0"><b-icon icon="clipboard-check"></b-icon> Kanban</h1>
         </b-col>
       </b-row>
