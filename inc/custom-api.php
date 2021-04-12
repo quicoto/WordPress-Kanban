@@ -39,6 +39,7 @@ function get_all_boards($term_id) {
 
     // Can this be done in a more performant way?
     foreach ($posts as &$post) {
+      $post->post_content = make_clickable($post->post_content);
       $post->status = (int) get_post_meta( $post->ID, 'status', true );
     }
 
