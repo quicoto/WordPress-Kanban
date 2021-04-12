@@ -6,13 +6,13 @@ It uses the power of the WordPress REST API to communicate back and forth from a
 
 ## Screenshots
 
-### Mobile
-
-![Mobile](https://cldup.com/lIG7Dd8VCO.png)
-
 ### Desktop
 
 ![Desktop](https://cldup.com/xWuYKto1IQ.png)
+
+### Mobile
+
+![Mobile](https://cldup.com/lIG7Dd8VCO.png)
 
 ## TODO
 
