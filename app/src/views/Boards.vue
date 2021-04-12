@@ -42,6 +42,7 @@
               </template>
               <b-card-text>
                 <span v-html="item.post_content"></span>
+                <small class="d-block text-right pt-2">{{ item.date }}</small>
               </b-card-text>
             </b-card>
           </b-card-group>
@@ -79,6 +80,7 @@
               </template>
               <b-card-text>
                 <span v-html="item.post_content"></span>
+                <small class="d-block text-right pt-2">{{ item.date }}</small>
               </b-card-text>
             </b-card>
           </b-card-group>
@@ -112,6 +114,7 @@
               </template>
               <b-card-text>
                 <span v-html="item.post_content"></span>
+                <small class="d-block text-right pt-2">{{ item.date }}</small>
               </b-card-text>
             </b-card>
           </b-card-group>

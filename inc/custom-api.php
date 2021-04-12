@@ -41,6 +41,7 @@ function get_all_boards($term_id) {
     foreach ($posts as &$post) {
       $post->post_content = make_clickable($post->post_content);
       $post->status = (int) get_post_meta( $post->ID, 'status', true );
+      $post->date = date_i18n( get_option( 'date_format' ), strtotime( $post->post_date ) );
     }
 
     $term->items = $posts;
