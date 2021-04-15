@@ -41,7 +41,7 @@
                 </div>
               </template>
               <b-card-text>
-                <span v-html="item.post_content"></span>
+                <span v-html="item.post_content.replace(/(?:\r\n|\r|\n)/g, '<br />')"></span>
                 <small class="d-block text-right pt-2">{{ item.date }}</small>
               </b-card-text>
             </b-card>
@@ -79,7 +79,7 @@
                 </div>
               </template>
               <b-card-text>
-                <span v-html="item.post_content"></span>
+                <span v-html="item.post_content.replace(/(?:\r\n|\r|\n)/g, '<br />')"></span>
                 <small class="d-block text-right pt-2">{{ item.date }}</small>
               </b-card-text>
             </b-card>
@@ -113,7 +113,7 @@
                 </div>
               </template>
               <b-card-text>
-                <span v-html="item.post_content"></span>
+                <span v-html="item.post_content.replace(/(?:\r\n|\r|\n)/g, '<br />')"></span>
                 <small class="d-block text-right pt-2">{{ item.date }}</small>
               </b-card-text>
             </b-card>
