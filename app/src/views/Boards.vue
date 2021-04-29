@@ -335,6 +335,19 @@ export default {
   created: function() {
     this.fetchResources();
   },
+  mounted: function() {
+    // Using the bookmark
+    if (this.$route.query.title
+      && this.$route.query.content
+      && this.$route.query.board) {
+      this.newItem.content = this.$route.query.content;
+      this.newItem.title = this.$route.query.title;
+      this.newItem.board = +this.$route.query.board;
+
+      this.$bvModal.show('modal-1');
+      this.$router.replace({});
+    }
+  },
   watch: {
     $route() {
       this.fetchResources();
