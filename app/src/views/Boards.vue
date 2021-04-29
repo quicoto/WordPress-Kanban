@@ -37,6 +37,7 @@
                   </h6>
                   <span class="actions">
                     <b-icon icon="arrow-clockwise" @click="changeStatus(item.ID, 2)"></b-icon>
+                    <b-icon icon="check-square" class="ml-1" @click="changeStatus(item.ID, 3)"></b-icon>
                   </span>
                 </div>
               </template>
@@ -290,8 +291,6 @@ export default {
 
     },
     updateItem: function() {
-      // event.preventDefault();
-
       this.$refs['update-modal'].hide();
 
       const data = {
@@ -360,6 +359,17 @@ export default {
 .card-header,
 .card-body {
   padding: 0.5rem .75rem;
+}
+
+.card-header {
+  h6 {
+    display: flex;
+    max-width: 90%;
+
+    svg {
+      margin-right: 10px;
+    }
+  }
 }
 
 .actions > * {
