@@ -109,7 +109,7 @@
                   </h6>
                   <span class="actions">
                     <b-icon icon="arrow-clockwise" class="ml-1" @click="changeStatus(item.ID, 2)"></b-icon>
-                    <b-icon icon="trash" class="ml-1" @click="changeStatus(item.ID, 4)"></b-icon>
+                    <b-icon icon="trash" class="ml-1" @click="deleteItem(item.ID)"></b-icon>
                   </span>
                 </div>
               </template>
@@ -326,6 +326,23 @@ export default {
       };
 
       fetch(`${window.kanban_.restUrl}${endpoints.updateItemStatus}`, options)
+        .then(() => {
+          this.fetchResources();
+        });
+    },
+     deleteItem: function (itemId) {
+       const data = {
+        itemId
+      };
+      const options = {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      };
+
+      fetch(`${window.kanban_.restUrl}${endpoints.deleteItem}`, options)
         .then(() => {
           this.fetchResources();
         });

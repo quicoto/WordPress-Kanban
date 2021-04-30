@@ -74,6 +74,10 @@ function update_item_status ($data) {
   return update_post_meta($data['itemId'], 'status', $data['status'] );
 }
 
+function delete_item ($data) {
+  return wp_delete_post( $data['itemId'] );
+}
+
 function update_item ($data) {
   $my_post = array(
     'ID'           => $data['ID'],
@@ -112,6 +116,11 @@ add_action( 'rest_api_init', function () {
   register_rest_route( 'kanban/v1', '/update-item-status', array(
     'methods' => 'POST',
     'callback' => 'update_item_status',
+  ) );
+
+  register_rest_route( 'kanban/v1', '/delete-item', array(
+    'methods' => 'POST',
+    'callback' => 'delete_item',
   ) );
 
   register_rest_route( 'kanban/v1', '/update-item', array(
