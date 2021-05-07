@@ -1,6 +1,6 @@
 === kanban ===
 
-Contributors: automattic
+Contributors: quicoto
 Tags: custom-background, custom-logo, custom-menu, featured-images, threaded-comments, translation-ready
 
 Requires at least: 4.5
